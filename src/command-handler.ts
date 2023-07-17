@@ -290,6 +290,12 @@ export async function commandHandler(options: any) {
           } else if (options.instance == InstanceEnum.GETINSTANCEDEPLOYMENT) {
             const deploymentid = options._[1];
             await InstanceFunctions.getInstanceDeployment(deploymentid);
+          } else if (options.instance == InstanceEnum.GETINSTANCELOGS) {
+            const deploymentid = options._[1];
+            await InstanceFunctions.getInstancelogs(deploymentid);
+          } else if (options.instance == InstanceEnum.GETDOMAINS) {
+            const id = options._[1];
+            await InstanceFunctions.getDomains(id);
           }
         } else {
           throw new Error("Function needs to be specified");

@@ -541,14 +541,14 @@ function commandHandler(options) {
           if (options._[0] === "compute-instance") {
             (function () {
               return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-                var id, deploymentid;
+                var id, deploymentid, _deploymentid, _id3;
                 return _regeneratorRuntime().wrap(function _callee9$(_context9) {
                   while (1) switch (_context9.prev = _context9.next) {
                     case 0:
                       _context9.prev = 0;
                       console.log(options);
                       if (!options.instance) {
-                        _context9.next = 15;
+                        _context9.next = 27;
                         break;
                       }
                       if (!(options.instance == get_instance_1.InstanceEnum.GET)) {
@@ -559,34 +559,56 @@ function commandHandler(options) {
                       _context9.next = 7;
                       return get_instance_1.InstanceFunctions.getInstance(id);
                     case 7:
-                      _context9.next = 13;
+                      _context9.next = 25;
                       break;
                     case 9:
                       if (!(options.instance == get_instance_1.InstanceEnum.GETINSTANCEDEPLOYMENT)) {
-                        _context9.next = 13;
+                        _context9.next = 15;
                         break;
                       }
                       deploymentid = options._[1];
                       _context9.next = 13;
                       return get_instance_1.InstanceFunctions.getInstanceDeployment(deploymentid);
                     case 13:
-                      _context9.next = 16;
+                      _context9.next = 25;
                       break;
                     case 15:
-                      throw new Error("Function needs to be specified");
-                    case 16:
-                      _context9.next = 22;
+                      if (!(options.instance == get_instance_1.InstanceEnum.GETINSTANCELOGS)) {
+                        _context9.next = 21;
+                        break;
+                      }
+                      _deploymentid = options._[1];
+                      _context9.next = 19;
+                      return get_instance_1.InstanceFunctions.getInstancelogs(_deploymentid);
+                    case 19:
+                      _context9.next = 25;
                       break;
-                    case 18:
-                      _context9.prev = 18;
+                    case 21:
+                      if (!(options.instance == get_instance_1.InstanceEnum.GETDOMAINS)) {
+                        _context9.next = 25;
+                        break;
+                      }
+                      _id3 = options._[1];
+                      _context9.next = 25;
+                      return get_instance_1.InstanceFunctions.getDomains(_id3);
+                    case 25:
+                      _context9.next = 28;
+                      break;
+                    case 27:
+                      throw new Error("Function needs to be specified");
+                    case 28:
+                      _context9.next = 34;
+                      break;
+                    case 30:
+                      _context9.prev = 30;
                       _context9.t0 = _context9["catch"](0);
                       console.log(_context9.t0.message);
                       process.exit(1);
-                    case 22:
+                    case 34:
                     case "end":
                       return _context9.stop();
                   }
-                }, _callee9, null, [[0, 18]]);
+                }, _callee9, null, [[0, 30]]);
               }));
             })();
           }
