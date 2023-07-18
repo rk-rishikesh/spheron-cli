@@ -63,7 +63,6 @@ export async function createInstance() {
         healthCheckPort: 8000,
       });
 
-    console.log("JAI Shri hanuman");
     console.log(instanceResponse);
 
     await writeToJsonFile(
