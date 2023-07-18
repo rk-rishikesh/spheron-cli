@@ -35,6 +35,8 @@ import {
 } from "./prompts/prompts";
 import SpheronApiService from "./services/spheron-api";
 import { fileExists, readFromJsonFile } from "./utils";
+import { createInstance } from "./commands/create-instance";
+import { createMarketplaceInstance } from "./commands/marketplace-instance";
 
 export async function commandHandler(options: any) {
   if (!(await fileExists(configuration.configFilePath))) {
@@ -160,6 +162,38 @@ export async function commandHandler(options: any) {
         }
         try {
           await createOrganization(name, username, "app");
+        } catch (error) {
+          process.exit(1);
+        }
+      } catch (error) {
+        console.log(error.message);
+        process.exit(1);
+      }
+    })();
+  }
+
+  if (options._[0] === "create-instance") {
+    
+    (async () => {
+      try {
+        try {
+          await createInstance();
+        } catch (error) {
+          process.exit(1);
+        }
+      } catch (error) {
+        console.log(error.message);
+        process.exit(1);
+      }
+    })();
+  }
+
+  if (options._[0] === "create-marketplace-instance") {
+    
+    (async () => {
+      try {
+        try {
+          await createMarketplaceInstance();
         } catch (error) {
           process.exit(1);
         }

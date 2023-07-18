@@ -1,9 +1,12 @@
 import {
   AppTypeEnum,
+  CreateInstanceRequest,
+  CreateInstanceFromMarketplaceRequest,
   Deployment,
   DeploymentEnvironment,
   DeploymentStatusEnum,
   Domain,
+  InstanceResponse,
   Organization,
   Project,
   SpheronApi,
@@ -53,6 +56,28 @@ const SpheronApiService = {
       appType
     );
     return organization;
+  },
+
+  async createInstance(
+    clusterInstance: CreateInstanceRequest
+  ): Promise<InstanceResponse> {
+    const client: SpheronApi = await this.initialize();
+    const instanceResponse: InstanceResponse = await client.createClusterInstance(
+      clusterInstance
+    );
+    console.log(instanceResponse)
+    console.log("Bui Bui")
+    return instanceResponse;
+  },
+  
+  async createMarketplaceInstance(
+    clusterInstance: CreateInstanceFromMarketplaceRequest
+  ): Promise<InstanceResponse> {
+    const client: SpheronApi = await this.initialize();
+    const instanceResponse: InstanceResponse = await client.createClusterInstanceFromTemplate(
+      clusterInstance
+    );
+    return instanceResponse;
   },
 
   async getOrganization(id: string): Promise<Organization> {

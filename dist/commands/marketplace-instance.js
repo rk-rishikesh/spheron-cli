@@ -1,4 +1,3 @@
-#! /usr/bin/env node
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -38,102 +37,82 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var yargs = require("yargs");
-var core_1 = require("@spheron/core");
-var configuration_1 = __importDefault(require("./configuration"));
-var command_handler_1 = require("./command-handler");
-var init_1 = require("./commands/init");
-var get_resources_1 = require("./commands/get-resources");
-var get_instance_1 = require("./commands/get-instance");
-var gpt_1 = require("./commands/gpt");
-(function () {
-  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var options;
+exports.createMarketplaceInstance = void 0;
+var configuration_1 = __importDefault(require("../configuration"));
+var utils_1 = require("../utils");
+var create_configuration_1 = require("./create-configuration");
+var spinner_1 = __importDefault(require("../outputs/spinner"));
+var spheron_api_1 = __importDefault(require("../services/spheron-api"));
+var uuid_1 = require("uuid");
+function createMarketplaceInstance() {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var spinner, jwtToken, instanceResponse;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          console.log("Spheron CLI ".concat(configuration_1["default"].version, "\n"));
-          options = yargs.command("login", "Logs into yout Spheron account", function (yargs) {
-            yargs.option("github", {
-              describe: "Login using Github credentials"
-            }).option("gitlab", {
-              describe: "Login using Gitlab credentials"
-            }).option("bitbucket", {
-              describe: "Login using Bitbucket credentials"
-            }).version(false).usage("Usage: $0 login [--github|--gitlab|--bitbucket]").wrap(100).help();
-          }).command("logout", "Logs out of your account", function (yargs) {
-            yargs.version(false).usage("Usage: $0 logout").help();
-          }).command("compute-instance <instance>", "Get instance/s <<instance>>", function (yargs) {
-            yargs.positional("instance", {
-              describe: "The instance to get information about",
-              choices: Object.values(get_instance_1.InstanceEnum)
-            });
-            yargs.version(false).wrap(150).help();
-            yargs.epilogue("Custom help text for 'get <instance>' command.");
-          }).command("upload", "Upload", function (yargs) {
-            yargs.option("path", {
-              describe: "Relative path to file",
-              demandOption: false
-            }).option("protocol", {
-              describe: "Upload protocol",
-              choices: ["arweave", "filecoin", "ipfs"]
-            }).option("bucket", {
-              describe: "Bucket name"
-            }).option("organization", {
-              describe: "Organization where project will be created"
-            }).version(false).usage("Usage: $0 upload --path <file_path> --protocol [arweave| filecoin| ipfs] [--bucket <bucket_name>] [--organization <organizationId>]").wrap(100).help();
-          }).command("publish", "Upload your project setup in spheron.json", function (yargs) {
-            yargs.version(false).usage("Usage: $0 publish [--organization <organizationId>]").help();
-          }).command("create-organization", "Create organization", function (yargs) {
-            yargs.option("name", {
-              describe: "Name of the organization"
-            }).option("username", {
-              describe: "Username of the organization"
-            }).version(false).usage("Usage: $0 create-organization --name <organization_name> --username <username>").wrap(100).help();
-          }).command("create-instance", "Create Instance", function (yargs) {
-            yargs.version(false).usage("Usage: $0 create-instance").wrap(100).help();
-          }).command("create-marketplace-instance", "Create Marketplace Instance", function (yargs) {
-            yargs.version(false).usage("Usage: $0 create-marketplace-instance").wrap(100).help();
-          }).command("get <resource>", "Get resource/s <<resource>>", function (yargs) {
-            yargs.positional("resource", {
-              describe: "The resource to get information about",
-              choices: Object.values(get_resources_1.ResourceEnum)
-            });
-            yargs.version(false).wrap(150).help();
-            yargs.epilogue("Custom help text for 'get <resource>' command.\n\n      Examples:\n        - get organization            : options: --id \n        - get organizations           : (all organization for your user will be returned)\n        - get deployment              : options: --id\n        - get deployments             : options: --projectId, --skip (optional), --limit (optional), --status (optional)  \n        - get project                 : options: --id\n        - get projects                : options: --organizationId (optional), --skip (optional), --limit (optional), --state (optional)\n        - get domains                 : options: --projectId\n        - get deployment-environments : options: --projectId\n        Note* : \n        deployment status field can be ".concat(Object.values(core_1.DeploymentStatusEnum), "\n        project state field can be ").concat(Object.values(core_1.ProjectStateEnum), " \n      "));
-          }).command("init", "Spheron file initialization in project", function (yargs) {
-            yargs.option("protocol", {
-              describe: "Protocol that will be used for uploading ",
-              choices: ["arweave", "filecoin", "ipfs"]
-            }).option("project", {
-              describe: "Project name"
-            }).option("path", {
-              describe: "Relative path to uploading content"
-            }).option("framework", {
-              describe: "Framework choice for the project",
-              choices: Object.values(init_1.FrameworkOptions),
-              "default": "static"
-            }).version(false).usage("Usage: $0 init --protocol <protocol> [--project <project_name>] [--path <path>] [--framework <framework>]").wrap(150).help();
-          }).command("configure", "Change spheron default configuration", function (yargs) {
-            yargs.option("organization", {
-              describe: "Set id of default organization "
-            }).version(false).usage("Usage: $0 configure [--organization <organizationId>]").wrap(150).help();
-          }).command("create-dapp", "Create a dapp which can run on Spheron out of the box", function (yargs) {
-            yargs.version(false).usage("Usage: $0 create-dapp <name>").wrap(100).help();
-          }).command("gpt [command]", "Generate code using Spheron GPT", function (yargs) {
-            yargs.positional("command", {
-              describe: "The command to generate code",
-              choices: Object.values(gpt_1.CommandEnum)
-            });
-            yargs.version(false).wrap(150).help();
-            yargs.epilogue("Custom help text for 'gpt <command>' command.\n\nExamples:\n  - gpt            : Generate code          : options: --prompt, --filepath (optional)\n  - gpt update     : Update code            : options: --prompt, --filepath\n  - gpt findbugs   : Debug code             : options: --filepath\n  - gpt improve    : Optimise code          : options: --filepath\n  - gpt transpile  : Transpile code         : options: --filepath, --language\n  - gpt ctc        : Generate test cases    : options: --filepath                      \n        ");
-          }).argv;
-          _context.next = 4;
-          return (0, command_handler_1.commandHandler)(options);
-        case 4:
+          spinner = new spinner_1["default"]();
+          _context.prev = 1;
+          spinner.spin("Creating Instance ");
+          _context.next = 5;
+          return (0, utils_1.fileExists)(configuration_1["default"].configFilePath);
+        case 5:
+          if (_context.sent) {
+            _context.next = 8;
+            break;
+          }
+          _context.next = 8;
+          return (0, create_configuration_1.createConfiguration)();
+        case 8:
+          _context.next = 10;
+          return (0, utils_1.readFromJsonFile)("jwtToken", configuration_1["default"].configFilePath);
+        case 10:
+          jwtToken = _context.sent;
+          if (jwtToken) {
+            _context.next = 14;
+            break;
+          }
+          console.log("For creating new Instance, you need to login to Spheron first");
+          return _context.abrupt("return");
+        case 14:
+          _context.next = 16;
+          return spheron_api_1["default"].createMarketplaceInstance({
+            templateId: "6344361844c2dae46025ae7c",
+            environmentVariables: [],
+            organizationId: "64b6aac6a22cea0012583dbb",
+            akashImageId: "linuxserver/ipfs",
+            uniqueTopicId: (0, uuid_1.v4)(),
+            region: "any",
+            customInstanceSpecs: {
+              cpu: 1,
+              memory: "2",
+              storage: "1"
+            },
+            instanceCount: 1
+          });
+        case 16:
+          instanceResponse = _context.sent;
+          console.log(instanceResponse);
+          _context.next = 20;
+          return (0, utils_1.writeToJsonFile)("instance", instanceResponse.clusterId, instanceResponse.clusterInstanceId, configuration_1["default"].configFilePath);
+        case 20:
+          console.log(instanceResponse);
+          spinner.success("Instance is created");
+          _context.next = 28;
+          break;
+        case 24:
+          _context.prev = 24;
+          _context.t0 = _context["catch"](1);
+          console.log("\u2716\uFE0F  Error: ".concat(_context.t0.message));
+          throw _context.t0;
+        case 28:
+          _context.prev = 28;
+          spinner.stop();
+          return _context.finish(28);
+        case 31:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[1, 24, 28, 31]]);
   }));
-})();
+}
+exports.createMarketplaceInstance = createMarketplaceInstance;

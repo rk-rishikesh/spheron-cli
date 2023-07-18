@@ -53,21 +53,23 @@ var configuration_1 = __importDefault(require("./configuration"));
 var prompts_1 = require("./prompts/prompts");
 var spheron_api_1 = __importDefault(require("./services/spheron-api"));
 var utils_1 = require("./utils");
+var create_instance_1 = require("./commands/create-instance");
+var marketplace_instance_1 = require("./commands/marketplace-instance");
 function commandHandler(options) {
-  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
     var _this = this;
     var validOptions, unknownOptions, _validOptions, _unknownOptions, _validOptions2, _unknownOptions2, _validOptions3, _unknownOptions3, _validOptions4, _unknownOptions4, _validOptions5, _unknownOptions5, isWhitelisted;
-    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-      while (1) switch (_context12.prev = _context12.next) {
+    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+      while (1) switch (_context14.prev = _context14.next) {
         case 0:
-          _context12.next = 2;
+          _context14.next = 2;
           return (0, utils_1.fileExists)(configuration_1["default"].configFilePath);
         case 2:
-          if (_context12.sent) {
-            _context12.next = 5;
+          if (_context14.sent) {
+            _context14.next = 5;
             break;
           }
-          _context12.next = 5;
+          _context14.next = 5;
           return (0, create_configuration_1.createConfiguration)();
         case 5:
           if (options._[0] === "login") {
@@ -320,6 +322,72 @@ function commandHandler(options) {
               }));
             })();
           }
+          if (options._[0] === "create-instance") {
+            (function () {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+                return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+                  while (1) switch (_context6.prev = _context6.next) {
+                    case 0:
+                      _context6.prev = 0;
+                      _context6.prev = 1;
+                      _context6.next = 4;
+                      return (0, create_instance_1.createInstance)();
+                    case 4:
+                      _context6.next = 9;
+                      break;
+                    case 6:
+                      _context6.prev = 6;
+                      _context6.t0 = _context6["catch"](1);
+                      process.exit(1);
+                    case 9:
+                      _context6.next = 15;
+                      break;
+                    case 11:
+                      _context6.prev = 11;
+                      _context6.t1 = _context6["catch"](0);
+                      console.log(_context6.t1.message);
+                      process.exit(1);
+                    case 15:
+                    case "end":
+                      return _context6.stop();
+                  }
+                }, _callee6, null, [[0, 11], [1, 6]]);
+              }));
+            })();
+          }
+          if (options._[0] === "create-marketplace-instance") {
+            (function () {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+                return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+                  while (1) switch (_context7.prev = _context7.next) {
+                    case 0:
+                      _context7.prev = 0;
+                      _context7.prev = 1;
+                      _context7.next = 4;
+                      return (0, marketplace_instance_1.createMarketplaceInstance)();
+                    case 4:
+                      _context7.next = 9;
+                      break;
+                    case 6:
+                      _context7.prev = 6;
+                      _context7.t0 = _context7["catch"](1);
+                      process.exit(1);
+                    case 9:
+                      _context7.next = 15;
+                      break;
+                    case 11:
+                      _context7.prev = 11;
+                      _context7.t1 = _context7["catch"](0);
+                      console.log(_context7.t1.message);
+                      process.exit(1);
+                    case 15:
+                    case "end":
+                      return _context7.stop();
+                  }
+                }, _callee7, null, [[0, 11], [1, 6]]);
+              }));
+            })();
+          }
           if (options._[0] === "init") {
             _validOptions3 = ["protocol", "project", "path", "framework"];
             _unknownOptions3 = Object.keys(options).filter(function (option) {
@@ -330,27 +398,27 @@ function commandHandler(options) {
               process.exit(1);
             }
             (function () {
-              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
                 var project, protocol, path, framework, prompt, pathSegments;
-                return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-                  while (1) switch (_context6.prev = _context6.next) {
+                return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+                  while (1) switch (_context8.prev = _context8.next) {
                     case 0:
-                      _context6.prev = 0;
+                      _context8.prev = 0;
                       if (!options.protocol) {
-                        _context6.next = 8;
+                        _context8.next = 8;
                         break;
                       }
                       project = options.project;
                       protocol = options.protocol.toLowerCase();
                       path = options.path;
                       framework = options.framework;
-                      _context6.next = 15;
+                      _context8.next = 15;
                       break;
                     case 8:
-                      _context6.next = 10;
+                      _context8.next = 10;
                       return (0, prompts_1.promptForInit)();
                     case 10:
-                      prompt = _context6.sent;
+                      prompt = _context8.sent;
                       project = prompt.project;
                       protocol = prompt.protocol.toLowerCase();
                       path = prompt.path;
@@ -363,252 +431,252 @@ function commandHandler(options) {
                       if (!path) {
                         path = "./";
                       }
-                      _context6.next = 19;
+                      _context8.next = 19;
                       return (0, init_1.init)(project, protocol, path, framework);
                     case 19:
-                      _context6.next = 25;
+                      _context8.next = 25;
                       break;
                     case 21:
-                      _context6.prev = 21;
-                      _context6.t0 = _context6["catch"](0);
-                      console.log(_context6.t0.message);
+                      _context8.prev = 21;
+                      _context8.t0 = _context8["catch"](0);
+                      console.log(_context8.t0.message);
                       process.exit(1);
                     case 25:
                     case "end":
-                      return _context6.stop();
+                      return _context8.stop();
                   }
-                }, _callee6, null, [[0, 21]]);
+                }, _callee8, null, [[0, 21]]);
               }));
             })();
           }
           if (options._[0] === "create-dapp") {
             (function () {
-              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-                return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-                  while (1) switch (_context7.prev = _context7.next) {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+                return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+                  while (1) switch (_context9.prev = _context9.next) {
                     case 0:
-                      _context7.prev = 0;
+                      _context9.prev = 0;
                       if (!options._[1]) {
-                        _context7.next = 6;
+                        _context9.next = 6;
                         break;
                       }
-                      _context7.next = 4;
+                      _context9.next = 4;
                       return (0, prompts_1.promptForCreateDapp)(options._[1]);
                     case 4:
-                      _context7.next = 8;
+                      _context9.next = 8;
                       break;
                     case 6:
-                      _context7.next = 8;
+                      _context9.next = 8;
                       return (0, prompts_1.promptForCreateDapp)();
                     case 8:
-                      _context7.next = 14;
+                      _context9.next = 14;
                       break;
                     case 10:
-                      _context7.prev = 10;
-                      _context7.t0 = _context7["catch"](0);
-                      console.log(_context7.t0.message);
+                      _context9.prev = 10;
+                      _context9.t0 = _context9["catch"](0);
+                      console.log(_context9.t0.message);
                       process.exit(1);
                     case 14:
                     case "end":
-                      return _context7.stop();
+                      return _context9.stop();
                   }
-                }, _callee7, null, [[0, 10]]);
+                }, _callee9, null, [[0, 10]]);
               }));
             })();
           }
           if (options._[0] === "get") {
             (function () {
-              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
                 var id, projectId, skip, limit, status, _id, organizationId, _skip, _limit, state, _id2, _projectId, _projectId2;
-                return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-                  while (1) switch (_context8.prev = _context8.next) {
+                return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+                  while (1) switch (_context10.prev = _context10.next) {
                     case 0:
-                      _context8.prev = 0;
+                      _context10.prev = 0;
                       if (!options.resource) {
-                        _context8.next = 55;
+                        _context10.next = 55;
                         break;
                       }
                       if (!(options.resource == get_resources_1.ResourceEnum.DEPLOYMENT)) {
-                        _context8.next = 8;
+                        _context10.next = 8;
                         break;
                       }
                       id = options.id;
-                      _context8.next = 6;
+                      _context10.next = 6;
                       return get_resources_1.ResourceFetcher.getDeployment(id);
                     case 6:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 8:
                       if (!(options.resource == get_resources_1.ResourceEnum.DEPLOYMENTS)) {
-                        _context8.next = 17;
+                        _context10.next = 17;
                         break;
                       }
                       projectId = options.projectId;
                       skip = options.skip;
                       limit = options.limit;
                       status = options.status;
-                      _context8.next = 15;
+                      _context10.next = 15;
                       return get_resources_1.ResourceFetcher.getProjectDeployments(projectId, skip, limit, status);
                     case 15:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 17:
                       if (!(options.resource == get_resources_1.ResourceEnum.PROJECT)) {
-                        _context8.next = 23;
+                        _context10.next = 23;
                         break;
                       }
                       _id = options.id;
-                      _context8.next = 21;
+                      _context10.next = 21;
                       return get_resources_1.ResourceFetcher.getProject(_id);
                     case 21:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 23:
                       if (!(options.resource == get_resources_1.ResourceEnum.PROJECTS)) {
-                        _context8.next = 32;
+                        _context10.next = 32;
                         break;
                       }
                       organizationId = options.organizationId;
                       _skip = options.skip;
                       _limit = options.limit;
                       state = options.state;
-                      _context8.next = 30;
+                      _context10.next = 30;
                       return get_resources_1.ResourceFetcher.getOrganizationProjects(organizationId, _skip, _limit, state);
                     case 30:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 32:
                       if (!(options.resource == get_resources_1.ResourceEnum.ORGANIZATION)) {
-                        _context8.next = 38;
+                        _context10.next = 38;
                         break;
                       }
                       _id2 = options.id;
-                      _context8.next = 36;
+                      _context10.next = 36;
                       return get_resources_1.ResourceFetcher.getOrganization(_id2);
                     case 36:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 38:
                       if (!(options.resource == get_resources_1.ResourceEnum.ORGANIZATIONS)) {
-                        _context8.next = 43;
+                        _context10.next = 43;
                         break;
                       }
-                      _context8.next = 41;
+                      _context10.next = 41;
                       return get_resources_1.ResourceFetcher.getUserOrganizations();
                     case 41:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 43:
                       if (!(options.resource == get_resources_1.ResourceEnum.DOMAINS)) {
-                        _context8.next = 49;
+                        _context10.next = 49;
                         break;
                       }
                       _projectId = options.projectId;
-                      _context8.next = 47;
+                      _context10.next = 47;
                       return get_resources_1.ResourceFetcher.getProjectDomains(_projectId);
                     case 47:
-                      _context8.next = 53;
+                      _context10.next = 53;
                       break;
                     case 49:
                       if (!(options.resource == get_resources_1.ResourceEnum.DEPLOYMENT_ENVIRONMENTS)) {
-                        _context8.next = 53;
+                        _context10.next = 53;
                         break;
                       }
                       _projectId2 = options.projectId;
-                      _context8.next = 53;
+                      _context10.next = 53;
                       return get_resources_1.ResourceFetcher.getProjectDeploymentEnvironments(_projectId2);
                     case 53:
-                      _context8.next = 56;
+                      _context10.next = 56;
                       break;
                     case 55:
                       throw new Error("Resource needs to be specified");
                     case 56:
-                      _context8.next = 62;
+                      _context10.next = 62;
                       break;
                     case 58:
-                      _context8.prev = 58;
-                      _context8.t0 = _context8["catch"](0);
-                      console.log(_context8.t0.message);
+                      _context10.prev = 58;
+                      _context10.t0 = _context10["catch"](0);
+                      console.log(_context10.t0.message);
                       process.exit(1);
                     case 62:
                     case "end":
-                      return _context8.stop();
+                      return _context10.stop();
                   }
-                }, _callee8, null, [[0, 58]]);
+                }, _callee10, null, [[0, 58]]);
               }));
             })();
           }
           if (options._[0] === "compute-instance") {
             (function () {
-              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
                 var id, deploymentid, _deploymentid, _id3;
-                return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-                  while (1) switch (_context9.prev = _context9.next) {
+                return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+                  while (1) switch (_context11.prev = _context11.next) {
                     case 0:
-                      _context9.prev = 0;
+                      _context11.prev = 0;
                       console.log(options);
                       if (!options.instance) {
-                        _context9.next = 27;
+                        _context11.next = 27;
                         break;
                       }
                       if (!(options.instance == get_instance_1.InstanceEnum.GET)) {
-                        _context9.next = 9;
+                        _context11.next = 9;
                         break;
                       }
                       id = options._[1];
-                      _context9.next = 7;
+                      _context11.next = 7;
                       return get_instance_1.InstanceFunctions.getInstance(id);
                     case 7:
-                      _context9.next = 25;
+                      _context11.next = 25;
                       break;
                     case 9:
                       if (!(options.instance == get_instance_1.InstanceEnum.GETINSTANCEDEPLOYMENT)) {
-                        _context9.next = 15;
+                        _context11.next = 15;
                         break;
                       }
                       deploymentid = options._[1];
-                      _context9.next = 13;
+                      _context11.next = 13;
                       return get_instance_1.InstanceFunctions.getInstanceDeployment(deploymentid);
                     case 13:
-                      _context9.next = 25;
+                      _context11.next = 25;
                       break;
                     case 15:
                       if (!(options.instance == get_instance_1.InstanceEnum.GETINSTANCELOGS)) {
-                        _context9.next = 21;
+                        _context11.next = 21;
                         break;
                       }
                       _deploymentid = options._[1];
-                      _context9.next = 19;
+                      _context11.next = 19;
                       return get_instance_1.InstanceFunctions.getInstancelogs(_deploymentid);
                     case 19:
-                      _context9.next = 25;
+                      _context11.next = 25;
                       break;
                     case 21:
                       if (!(options.instance == get_instance_1.InstanceEnum.GETDOMAINS)) {
-                        _context9.next = 25;
+                        _context11.next = 25;
                         break;
                       }
                       _id3 = options._[1];
-                      _context9.next = 25;
+                      _context11.next = 25;
                       return get_instance_1.InstanceFunctions.getDomains(_id3);
                     case 25:
-                      _context9.next = 28;
+                      _context11.next = 28;
                       break;
                     case 27:
                       throw new Error("Function needs to be specified");
                     case 28:
-                      _context9.next = 34;
+                      _context11.next = 34;
                       break;
                     case 30:
-                      _context9.prev = 30;
-                      _context9.t0 = _context9["catch"](0);
-                      console.log(_context9.t0.message);
+                      _context11.prev = 30;
+                      _context11.t0 = _context11["catch"](0);
+                      console.log(_context11.t0.message);
                       process.exit(1);
                     case 34:
                     case "end":
-                      return _context9.stop();
+                      return _context11.stop();
                   }
-                }, _callee9, null, [[0, 30]]);
+                }, _callee11, null, [[0, 30]]);
               }));
             })();
           }
@@ -622,46 +690,46 @@ function commandHandler(options) {
               process.exit(1);
             }
             (function () {
-              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+              return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
                 var organizationId, prompt;
-                return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-                  while (1) switch (_context10.prev = _context10.next) {
+                return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+                  while (1) switch (_context12.prev = _context12.next) {
                     case 0:
-                      _context10.prev = 0;
+                      _context12.prev = 0;
                       if (!options.organization) {
-                        _context10.next = 5;
+                        _context12.next = 5;
                         break;
                       }
                       organizationId = options.organization;
-                      _context10.next = 9;
+                      _context12.next = 9;
                       break;
                     case 5:
-                      _context10.next = 7;
+                      _context12.next = 7;
                       return (0, prompts_1.promptForConfigure)();
                     case 7:
-                      prompt = _context10.sent;
+                      prompt = _context12.sent;
                       organizationId = prompt.organization;
                     case 9:
-                      _context10.next = 11;
+                      _context12.next = 11;
                       return (0, configure_1.changeDefaultOrganization)(organizationId);
                     case 11:
-                      _context10.next = 17;
+                      _context12.next = 17;
                       break;
                     case 13:
-                      _context10.prev = 13;
-                      _context10.t0 = _context10["catch"](0);
-                      console.log(_context10.t0.message);
+                      _context12.prev = 13;
+                      _context12.t0 = _context12["catch"](0);
+                      console.log(_context12.t0.message);
                       process.exit(1);
                     case 17:
                     case "end":
-                      return _context10.stop();
+                      return _context12.stop();
                   }
-                }, _callee10, null, [[0, 13]]);
+                }, _callee12, null, [[0, 13]]);
               }));
             })();
           }
           if (!(options._[0] === "gpt")) {
-            _context12.next = 24;
+            _context14.next = 26;
             break;
           }
           _validOptions5 = ["prompt", "command", "filepath", "language"];
@@ -672,238 +740,238 @@ function commandHandler(options) {
             console.log("Unrecognized options: ".concat(_unknownOptions5.join(", ")));
             process.exit(1);
           }
-          _context12.next = 21;
+          _context14.next = 23;
           return spheron_api_1["default"].isWhitelisted();
-        case 21:
-          isWhitelisted = _context12.sent;
+        case 23:
+          isWhitelisted = _context14.sent;
           if (!(isWhitelisted === null || isWhitelisted === void 0 ? void 0 : isWhitelisted.whitelisted) && (isWhitelisted === null || isWhitelisted === void 0 ? void 0 : isWhitelisted.error)) {
             console.log(isWhitelisted === null || isWhitelisted === void 0 ? void 0 : isWhitelisted.message);
             process.exit(1);
           }
           (function () {
-            return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+            return __awaiter(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
               var gptPrompt, prompt, _gptPrompt, _prompt, filePath, path, _filePath, _path, _filePath2, _path2, progLanguage, lang, _filePath3, _path3, _progLanguage, _lang, _filePath4, _path4;
-              return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-                while (1) switch (_context11.prev = _context11.next) {
+              return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+                while (1) switch (_context13.prev = _context13.next) {
                   case 0:
-                    _context11.prev = 0;
+                    _context13.prev = 0;
                     if (options.command) {
-                      _context11.next = 17;
+                      _context13.next = 17;
                       break;
                     }
                     if (!options.prompt) {
-                      _context11.next = 6;
+                      _context13.next = 6;
                       break;
                     }
                     gptPrompt = options.prompt;
-                    _context11.next = 10;
+                    _context13.next = 10;
                     break;
                   case 6:
-                    _context11.next = 8;
+                    _context13.next = 8;
                     return (0, prompts_1.promptForGPT)();
                   case 8:
-                    prompt = _context11.sent;
+                    prompt = _context13.sent;
                     gptPrompt = prompt.gpt;
                   case 10:
                     if (!options.filepath) {
-                      _context11.next = 15;
+                      _context13.next = 15;
                       break;
                     }
-                    _context11.next = 13;
+                    _context13.next = 13;
                     return (0, gpt_1.generateCodeBasedOnFile)(gptPrompt, options.filepath);
                   case 13:
-                    _context11.next = 17;
+                    _context13.next = 17;
                     break;
                   case 15:
-                    _context11.next = 17;
+                    _context13.next = 17;
                     return (0, gpt_1.generateCode)(gptPrompt);
                   case 17:
                     if (!options.command) {
-                      _context11.next = 105;
+                      _context13.next = 105;
                       break;
                     }
                     if (!(options.command == gpt_1.CommandEnum.UPDATE)) {
-                      _context11.next = 39;
+                      _context13.next = 39;
                       break;
                     }
                     if (!options.prompt) {
-                      _context11.next = 23;
+                      _context13.next = 23;
                       break;
                     }
                     _gptPrompt = options.prompt;
-                    _context11.next = 27;
+                    _context13.next = 27;
                     break;
                   case 23:
-                    _context11.next = 25;
+                    _context13.next = 25;
                     return (0, prompts_1.promptForGPT)();
                   case 25:
-                    _prompt = _context11.sent;
+                    _prompt = _context13.sent;
                     _gptPrompt = _prompt.gpt;
                   case 27:
                     if (!options.filepath) {
-                      _context11.next = 31;
+                      _context13.next = 31;
                       break;
                     }
                     filePath = options.filepath;
-                    _context11.next = 35;
+                    _context13.next = 35;
                     break;
                   case 31:
-                    _context11.next = 33;
+                    _context13.next = 33;
                     return (0, prompts_1.filePathForGPT)();
                   case 33:
-                    path = _context11.sent;
+                    path = _context13.sent;
                     filePath = path.inputpath;
                   case 35:
-                    _context11.next = 37;
+                    _context13.next = 37;
                     return (0, gpt_1.updateCode)(_gptPrompt, filePath);
                   case 37:
-                    _context11.next = 105;
+                    _context13.next = 105;
                     break;
                   case 39:
                     if (!(options.command == gpt_1.CommandEnum.FINDBUGS)) {
-                      _context11.next = 52;
+                      _context13.next = 52;
                       break;
                     }
                     if (!options.filepath) {
-                      _context11.next = 44;
+                      _context13.next = 44;
                       break;
                     }
                     _filePath = options.filepath;
-                    _context11.next = 48;
+                    _context13.next = 48;
                     break;
                   case 44:
-                    _context11.next = 46;
+                    _context13.next = 46;
                     return (0, prompts_1.filePathForGPT)();
                   case 46:
-                    _path = _context11.sent;
+                    _path = _context13.sent;
                     _filePath = _path.inputpath;
                   case 48:
-                    _context11.next = 50;
+                    _context13.next = 50;
                     return (0, gpt_1.findBugsInCode)(_filePath);
                   case 50:
-                    _context11.next = 105;
+                    _context13.next = 105;
                     break;
                   case 52:
                     if (!(options.command == gpt_1.CommandEnum.IMPROVE)) {
-                      _context11.next = 65;
+                      _context13.next = 65;
                       break;
                     }
                     if (!options.filepath) {
-                      _context11.next = 57;
+                      _context13.next = 57;
                       break;
                     }
                     _filePath2 = options.filepath;
-                    _context11.next = 61;
+                    _context13.next = 61;
                     break;
                   case 57:
-                    _context11.next = 59;
+                    _context13.next = 59;
                     return (0, prompts_1.filePathForGPT)();
                   case 59:
-                    _path2 = _context11.sent;
+                    _path2 = _context13.sent;
                     _filePath2 = _path2.inputpath;
                   case 61:
-                    _context11.next = 63;
+                    _context13.next = 63;
                     return (0, gpt_1.improveCode)(_filePath2);
                   case 63:
-                    _context11.next = 105;
+                    _context13.next = 105;
                     break;
                   case 65:
                     if (!(options.command == gpt_1.CommandEnum.TRANSPILE)) {
-                      _context11.next = 86;
+                      _context13.next = 86;
                       break;
                     }
                     if (!options.language) {
-                      _context11.next = 70;
+                      _context13.next = 70;
                       break;
                     }
                     progLanguage = options.language;
-                    _context11.next = 74;
+                    _context13.next = 74;
                     break;
                   case 70:
-                    _context11.next = 72;
+                    _context13.next = 72;
                     return (0, prompts_1.languageForGPT)();
                   case 72:
-                    lang = _context11.sent;
+                    lang = _context13.sent;
                     progLanguage = lang.lang;
                   case 74:
                     if (!options.filepath) {
-                      _context11.next = 78;
+                      _context13.next = 78;
                       break;
                     }
                     _filePath3 = options.filepath;
-                    _context11.next = 82;
+                    _context13.next = 82;
                     break;
                   case 78:
-                    _context11.next = 80;
+                    _context13.next = 80;
                     return (0, prompts_1.filePathForGPT)();
                   case 80:
-                    _path3 = _context11.sent;
+                    _path3 = _context13.sent;
                     _filePath3 = _path3.inputpath;
                   case 82:
-                    _context11.next = 84;
+                    _context13.next = 84;
                     return (0, gpt_1.transpileCode)(progLanguage, _filePath3);
                   case 84:
-                    _context11.next = 105;
+                    _context13.next = 105;
                     break;
                   case 86:
                     if (!(options.command == gpt_1.CommandEnum.TEST)) {
-                      _context11.next = 105;
+                      _context13.next = 105;
                       break;
                     }
                     if (!options.language) {
-                      _context11.next = 91;
+                      _context13.next = 91;
                       break;
                     }
                     _progLanguage = options.language;
-                    _context11.next = 95;
+                    _context13.next = 95;
                     break;
                   case 91:
-                    _context11.next = 93;
+                    _context13.next = 93;
                     return (0, prompts_1.languageForGPTTest)();
                   case 93:
-                    _lang = _context11.sent;
+                    _lang = _context13.sent;
                     _progLanguage = _lang.testlang;
                   case 95:
                     if (!options.filepath) {
-                      _context11.next = 99;
+                      _context13.next = 99;
                       break;
                     }
                     _filePath4 = options.filepath;
-                    _context11.next = 103;
+                    _context13.next = 103;
                     break;
                   case 99:
-                    _context11.next = 101;
+                    _context13.next = 101;
                     return (0, prompts_1.filePathForGPT)();
                   case 101:
-                    _path4 = _context11.sent;
+                    _path4 = _context13.sent;
                     _filePath4 = _path4.inputpath;
                   case 103:
-                    _context11.next = 105;
+                    _context13.next = 105;
                     return (0, gpt_1.createTestCases)(_progLanguage, _filePath4);
                   case 105:
-                    _context11.next = 111;
+                    _context13.next = 111;
                     break;
                   case 107:
-                    _context11.prev = 107;
-                    _context11.t0 = _context11["catch"](0);
-                    console.log(_context11.t0.message);
+                    _context13.prev = 107;
+                    _context13.t0 = _context13["catch"](0);
+                    console.log(_context13.t0.message);
                     process.exit(1);
                   case 111:
                   case "end":
-                    return _context11.stop();
+                    return _context13.stop();
                 }
-              }, _callee11, null, [[0, 107]]);
+              }, _callee13, null, [[0, 107]]);
             }));
           })();
-        case 24:
+        case 26:
           if (!options._[0]) {
             console.log("Please use --help to check all commands available with spheron cli");
           }
-        case 25:
+        case 27:
         case "end":
-          return _context12.stop();
+          return _context14.stop();
       }
-    }, _callee12);
+    }, _callee14);
   }));
 }
 exports.commandHandler = commandHandler;

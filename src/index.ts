@@ -88,6 +88,24 @@ import { CommandEnum } from "./commands/gpt";
         .wrap(100)
         .help();
     })
+    .command("create-instance", "Create Instance", (yargs: any) => {
+      yargs
+        .version(false)
+        .usage(
+          `Usage: $0 create-instance`
+        )
+        .wrap(100)
+        .help();
+    })
+    .command("create-marketplace-instance", "Create Marketplace Instance", (yargs: any) => {
+      yargs
+        .version(false)
+        .usage(
+          `Usage: $0 create-marketplace-instance`
+        )
+        .wrap(100)
+        .help();
+    })
     .command("get <resource>", "Get resource/s <<resource>>", (yargs: any) => {
       yargs.positional("resource", {
         describe: "The resource to get information about",
